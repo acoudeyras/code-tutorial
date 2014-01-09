@@ -4,7 +4,8 @@ angular.module('codeTutorialApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ui.codemirror'
 ])
   .config(function ($routeProvider) {
     $routeProvider
