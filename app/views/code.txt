@@ -1,0 +1,70 @@
+
+WAF.define('TextWidget', function() {
+	'use strict';
+  	var widget = WAF.require('waf-core/widget');
+  	var TextWidget = widget.create('TextWidget');
+
+  	TextWidget.tagName = 'span';
+  	
+	TextWidget.prototype.init = function() {
+        this.text.onChange(this.render.bind(this));
+        this.render();
+	};
+	TextWidget.prototype.render = function() {
+		this.$el = $(this.node);
+		this.$el.text(this.text());
+	};	
+  
+  	TextWidget.addProperty('text');
+  
+	return TextWidget;
+});
+
+
+
+
+
+var W = WAF.require('TextWidget');
+var w = new W({
+  text: 'coucou'
+});
+$('#display').append(w.node);
+
+
+
+WAF.define('LinkWidget', function() {
+	'use strict';
+  	var widget = WAF.require('waf-core/widget');
+  	var LinkWidget = widget.create('LinkWidget');
+
+  	LinkWidget.tagName = 'a';
+  	
+	LinkWidget.prototype.init = function() {
+      	var render = this.render.bind(this);
+        this.text.onChange(render);
+      	this.href.onChange(render);
+      	this.target.onChange(render);
+        render();
+	};
+	LinkWidget.prototype.render = function() {
+		this.$el = $(this.node);
+		this.$el.text(this.text());
+      	this.$el.attr('href', this.href());
+      	this.$el.attr('target', this.target());
+    };
+  
+  	LinkWidget.addProperty('text');
+  	LinkWidget.addProperty('href');
+  	LinkWidget.addProperty('target');
+  
+	return LinkWidget;
+});
+
+
+var W = WAF.require('LinkWidget');
+var w = new W({
+  text: 'coucou',
+  href: 'http://www.google.fr',
+  target: '_blank'
+});
+$('#display').append(w.node);

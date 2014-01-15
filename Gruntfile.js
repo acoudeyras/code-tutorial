@@ -17,7 +17,6 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
     // Project settings
     yeoman: {
       // configurable paths
@@ -65,13 +64,37 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [{
+        context: '/index.waPage/index.package.json',
+        host: '127.0.0.1',
+        port: 8081,
+        https: false,
+        changeOrigin: false,
+        xforward: false
+      }],
       livereload: {
         options: {
           open: true,
           base: [
             '.tmp',
             '<%= yeoman.app %>'
-          ]
+          ],
+          middleware: function (connect, options) {
+            var middlewares = [];
+            var directory = options.directory || options.base[options.base.length - 1];
+            if (!Array.isArray(options.base)) {
+              options.base = [options.base];
+            }
+            
+            // Setup the proxy
+            options.base.forEach(function(base) {
+              middlewares.push(connect.static(base));
+            });
+
+            middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+            //middlewares.push(connect.directory(directory));
+            return middlewares;
+          }          
         }
       },
       test: {
@@ -333,6 +356,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'bower-install',
+      'configureProxies',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -349,8 +373,8 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
-    'karma'
+    'connect:test'
+    //'karma'
   ]);
 
   grunt.registerTask('build', [

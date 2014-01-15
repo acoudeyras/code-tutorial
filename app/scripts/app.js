@@ -5,7 +5,8 @@ angular.module('codeTutorialApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.codemirror'
+  'ui.codemirror',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider) {
     $routeProvider

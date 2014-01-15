@@ -6,7 +6,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title></title>
+    <meta name="WAF.packageJson" content="/index.waPage/index.package.json"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -40,6 +42,8 @@
        ga('send', 'pageview');
     </script>
 
+
+
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -57,12 +61,21 @@
     <script src="bower_components/codemirror/lib/codemirror.js"></script>
     <script src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+        <script src="scripts/wakanda/Loader.js"></script>
+        <script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
 
+        <script src="scripts/directives/properties-editor.js"></script>
+        
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+
         <!-- endbuild -->
+
+
+
 </body>
 </html>
